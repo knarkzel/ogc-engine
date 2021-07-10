@@ -2,17 +2,17 @@ extern crate alloc;
 
 use crate::display::Display;
 use alloc::boxed::Box;
-use ogc::gx::Gx;
-use ogc::video::Video;
+use ogc::{gx::Gx, video::Video};
 
-type Setup = Box<dyn FnOnce(&mut Video)>;
-type Update = Box<dyn Fn(&mut Video, &mut Display)>;
+pub trait State {
+    fn setup(&mut self, _video: &mut Video) {}
+    fn update(&mut self, _video: &mut Video, _display: &mut Display) {}
+}
 
 #[derive(Default)]
 pub struct Engine {
     display: Option<Display>,
-    setup: Option<Setup>,
-    update: Option<Update>,
+    state: Option<Box<dyn State>>,
 }
 
 impl Engine {
@@ -20,13 +20,8 @@ impl Engine {
         Self::default()
     }
 
-    pub fn setup(mut self, function: Setup) -> Self {
-        self.setup = Some(function);
-        self
-    }
-
-    pub fn update(mut self, function: Update) -> Self {
-        self.update = Some(function);
+    pub fn state(mut self, state: Box<dyn State>) -> Self {
+        self.state = Some(state);
         self
     }
 
@@ -35,7 +30,7 @@ impl Engine {
         self
     }
 
-    pub fn run(self) -> ! {
+    pub fn run(mut self) -> ! {
         let mut video = Video::init();
         Video::configure(Video::get_preferred_mode().into());
         Video::set_next_framebuffer(video.framebuffer);
@@ -50,15 +45,16 @@ impl Engine {
         let fb_width = video.render_config.framebuffer_width as _;
         let emb_height = video.render_config.embed_framebuffer_height as _;
 
-        if let Some(setup) = self.setup {
-            setup(&mut video);
+        if let Some(ref mut state) = self.state {
+            state.setup(&mut video);
         }
 
         loop {
             Gx::set_viewport(0.0, 0.0, fb_width, emb_height, 0.0, 0.0);
 
-            if let Some(ref update) = self.update {
-                update(&mut video, &mut display);
+            if let Some(ref mut state) = self.state {
+                state.update(&mut video, &mut display);
+                display.flush(video.framebuffer);
             }
 
             Video::set_next_framebuffer(video.framebuffer);
