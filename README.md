@@ -1,7 +1,7 @@
 # ogc-engine
 
 <div align="center">
-	<img width="500" height="350" src="ogc-engine.png" alt="ogc-engine">
+	<img width="500" height="250" src="ogc-engine.png" alt="ogc-engine">
 </div>
 
 `ogc-engine` is a simple engine for creating games targeting the Wii.
