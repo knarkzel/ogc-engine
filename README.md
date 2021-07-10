@@ -1,5 +1,7 @@
 # ogc-engine
 
+[![GitHub contributors](https://img.shields.io/github/contributors/knarkzel/ogc-engine)](https://github.com/knarkzel/ogc-engine/graphs/contributors) [![GitHub issues](https://img.shields.io/github/issues/knarkzel/ogc-engine)](https://github.com/knarkzel/ogc-engine/issues) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/knarkzel/ogc-engine/pulls) [![HitCount](https://views.whatilearened.today/views/github/knarkzel/ogc-engine.svg)](https://github.com/knarkzel/ogc-engine)
+
 <div align="center">
 	<img width="500" height="250" src="ogc-engine.png" alt="ogc-engine">
 </div>
