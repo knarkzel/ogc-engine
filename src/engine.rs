@@ -4,11 +4,37 @@ use crate::display::Display;
 use alloc::boxed::Box;
 use ogc::{gx::Gx, video::Video};
 
+/// Trait for enabling state.
+///
+/// # Example
+///
+/// ```rust
+/// use ogc_engine::prelude::*;
+///
+/// struct Game {
+///     x: i32,
+///     y: i32,
+/// }
+///
+/// impl State for Game {
+///     fn update(&mut self, _video: &mut Video, display: &mut Display) {
+///         self.x += 1;
+///         self.y += 2;
+///     }
+/// }
+///
+/// #[start]
+/// fn main(_argc: isize, _argv: *const *const u8) -> isize {
+///     let state = Game { x: 50, y: 50 };
+///     Engine::new().state(Box::new(state)).run()
+/// }
+/// ```
 pub trait State {
     fn setup(&mut self, _video: &mut Video) {}
     fn update(&mut self, _video: &mut Video, _display: &mut Display) {}
 }
 
+/// Game engine abstraction.
 #[derive(Default)]
 pub struct Engine {
     display: Option<Display>,

@@ -1,7 +1,7 @@
 # ogc-engine
 
-What is `ogc-engine`? `ogc-engine` is an engine for creating games on the Wii
-leveraging `ogc-rs` and `embedded-graphics`.
+`ogc-engine` is a simple engine for creating games targeting the Wii.
+Internally it uses `ogc-rs` and `embedded-graphics`.
 
 ## Setup
 
@@ -18,6 +18,6 @@ leveraging `ogc-rs` and `embedded-graphics`.
 
 ```sh
 git clone https://github.com/knarkzel/ogc-engine
-cd ogc-engine/examples/minimal
+cd ogc-engine/examples/square
 just run
 ```

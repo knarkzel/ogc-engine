@@ -5,9 +5,7 @@ use ogc_engine::prelude::*;
 
 use embedded_graphics::{
     pixelcolor::Rgb888,
-    prelude::{Point, Primitive, RgbColor, Size},
     primitives::{PrimitiveStyleBuilder, Rectangle},
-    Drawable,
 };
 
 struct Game {

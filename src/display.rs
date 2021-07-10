@@ -21,6 +21,7 @@ use ogc::{
     prelude::*,
 };
 
+/// Underlying implementation for manipulating the screen via `ogc-rs`.
 pub struct Display;
 
 impl Display {
