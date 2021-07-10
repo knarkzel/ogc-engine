@@ -10,4 +10,4 @@ panic = "abort"
 panic = "abort"
 
 [dependencies]
-engine = { path = "../.." }
+ogc-engine = { path = "../.." }

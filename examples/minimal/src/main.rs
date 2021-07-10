@@ -1,7 +1,7 @@
 #![no_std]
 #![feature(start)]
 
-use engine::prelude::*;
+use ogc_engine::prelude::*;
 
 use embedded_graphics::{
     pixelcolor::Rgb888,

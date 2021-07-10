@@ -154,14 +154,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "engine"
-version = "0.1.0"
-dependencies = [
- "embedded-graphics",
- "ogc-rs",
-]
-
-[[package]]
 name = "env_logger"
 version = "0.8.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -257,7 +249,7 @@ checksum = "bc4010833aea396656c2f91ee704d51a6f1329ec2ab56ffd00bfd56f7481ea94"
 name = "minimal"
 version = "0.1.0"
 dependencies = [
- "engine",
+ "ogc-engine",
 ]
 
 [[package]]
@@ -298,6 +290,14 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn",
+]
+
+[[package]]
+name = "ogc-engine"
+version = "0.1.0"
+dependencies = [
+ "embedded-graphics",
+ "ogc-rs",
 ]
 
 [[package]]
