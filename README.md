@@ -1,5 +1,9 @@
 # ogc-engine
 
+<div align="center">
+	<img width="500" height="350" src="ogc-engine.png" alt="ogc-engine">
+</div>
+
 `ogc-engine` is a simple engine for creating games targeting the Wii.
 Internally it uses `ogc-rs` and `embedded-graphics`.
 
