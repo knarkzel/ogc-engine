@@ -3,7 +3,10 @@
 
 use ogc_engine::prelude::*;
 
-use embedded_graphics::{pixelcolor::Rgb888, primitives::Rectangle};
+use embedded_graphics::{
+    pixelcolor::Rgb888,
+    primitives::{Rectangle},
+};
 
 struct Game {
     x: i32,

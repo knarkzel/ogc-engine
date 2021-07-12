@@ -1,5 +1,0 @@
-[build]
-target = "powerpc-unknown-eabi.json"
-
-[unstable]
-build-std = ["core", "alloc"]

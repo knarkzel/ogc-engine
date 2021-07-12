@@ -60,10 +60,9 @@ impl Engine {
         let mut video = Video::init();
         Video::configure(Video::get_preferred_mode().into());
         Video::set_next_framebuffer(video.framebuffer);
-        Video::set_black(true);
+        Video::set_black(false);
         Video::flush();
         Video::wait_vsync();
-        Video::set_black(false);
 
         let mut display = self.display.unwrap_or(Display::new(256 * 1024));
         display.setup(&mut video.render_config);
