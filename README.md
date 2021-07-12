@@ -24,6 +24,6 @@ Internally it uses `ogc-rs` and `embedded-graphics`.
 
 ```sh
 git clone https://github.com/knarkzel/ogc-engine
-cd ogc-engine/examples/square
-just run
+cd ogc-engine/
+just run minimal
 ```
