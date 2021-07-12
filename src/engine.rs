@@ -2,7 +2,7 @@ extern crate alloc;
 
 use crate::display::Display;
 use alloc::boxed::Box;
-use ogc::{gx::Gx, video::Video};
+use ogc::{asnd::Asnd, gx::Gx, mp3player::Mp3Player, video::Video};
 
 /// Trait for enabling state.
 ///
@@ -46,18 +46,22 @@ impl Engine {
         Self::default()
     }
 
-    pub fn state(mut self, state: Box<dyn State>) -> Self {
-        self.state = Some(state);
-        self
+    pub fn state(self, state: Box<dyn State>) -> Self {
+        let state = Some(state);
+        Self { state, ..self }
     }
 
-    pub fn display(mut self, fifo_size: usize) -> Self {
-        self.display = Some(Display::new(fifo_size));
-        self
+    pub fn display(self, fifo_size: usize) -> Self {
+        let display = Some(Display::new(fifo_size));
+        Self { display, ..self }
     }
 
     pub fn run(mut self) -> ! {
+        // Init
         let mut video = Video::init();
+        Asnd::init();
+        Mp3Player::init();
+
         Video::configure(Video::get_preferred_mode().into());
         Video::set_next_framebuffer(video.framebuffer);
         Video::set_black(false);

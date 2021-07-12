@@ -21,10 +21,9 @@
     },
     "post-link-args": {
         "gcc": [
-            "-lwiiuse",
-            "-lbte",
+            "-lasnd",
             "-logc",
-            "-lm"
+            "-lmad"
         ]
     },
     "panic-strategy": "abort",

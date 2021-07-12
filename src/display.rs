@@ -5,7 +5,7 @@ use embedded_graphics::{
     draw_target::DrawTarget,
     pixelcolor::Rgb888,
     prelude::{IntoStorage, OriginDimensions, RgbColor, Size},
-    primitives::Rectangle,
+    primitives::{Rectangle, Triangle},
     Pixel,
 };
 
@@ -15,8 +15,8 @@ use ogc::{
         GX_CLIP_ENABLE, GX_CLR_RGBA, GX_COLOR0A0, GX_CULL_NONE, GX_DIRECT, GX_F32, GX_GM_1_0,
         GX_GREATER, GX_LEQUAL, GX_LO_CLEAR, GX_MAX_Z24, GX_NONE, GX_ORTHOGRAPHIC, GX_PASSCLR,
         GX_PF_RGB8_Z24, GX_PNMTX0, GX_POS_XYZ, GX_QUADS, GX_RGBA8, GX_TEVSTAGE0, GX_TEXCOORD0,
-        GX_TEXMAP0, GX_TEX_ST, GX_TRUE, GX_VA_CLR0, GX_VA_POS, GX_VA_TEX0, GX_VTXFMT0,
-        GX_ZC_LINEAR,
+        GX_TEXMAP0, GX_TEX_ST, GX_TRIANGLES, GX_TRUE, GX_VA_CLR0, GX_VA_POS, GX_VA_TEX0,
+        GX_VTXFMT0, GX_ZC_LINEAR,
     },
     prelude::*,
 };
@@ -156,12 +156,7 @@ impl DrawTarget for Display {
     }
 
     fn fill_solid(&mut self, area: &Rectangle, color: Self::Color) -> Result<(), Self::Error> {
-        // let color Rgb888::new(0xAA, 0xBB, 0xCC);
-        // assert_eq!(color.into_storage(), 0x00AABBCC);
-        // ^ this is wrong, we want 0xAABBCCFF, where fields are:
-        //                          0xRRGGBBAA, R = Red, G = Green, B = Blue, A = Alpha
-        //                                      0xFF is ALPHA
-        let color = (color.into_storage() << 8) | 0xFF;
+        let color = gx_color(color);
         let bottom = area.bottom_right().expect("No bottom_right");
         let (top_x, top_y) = (area.top_left.x as f32, area.top_left.y as f32);
         let (bottom_x, bottom_y) = (bottom.x as f32, bottom.y as f32);
@@ -185,4 +180,24 @@ impl OriginDimensions for Display {
     fn size(&self) -> Size {
         Size::new(640, 528)
     }
+}
+
+impl Display {
+    pub fn fill_triangle(&mut self, area: &Triangle, color: Rgb888) {
+        let color = gx_color(color);
+
+        Gx::begin(GX_TRIANGLES as _, GX_VTXFMT0 as _, 3);
+
+        for vertex in area.vertices {
+            Gx::position_3f32(vertex.x as _, vertex.y as _, 0.0);
+            Gx::color_1u32(color);
+        }
+
+        Gx::end();
+    }
+}
+
+fn gx_color(color: Rgb888) -> u32 {
+    // Turns 0x00RRGGBB => 0xRRGGBBFF
+    (color.into_storage() << 8) | 0xFF
 }

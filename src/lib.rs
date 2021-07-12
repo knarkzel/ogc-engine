@@ -29,6 +29,6 @@ pub mod engine;
 pub mod prelude {
     pub use crate::display::Display;
     pub use crate::engine::{Engine, State};
-    pub use embedded_graphics::{self, prelude::*};
+    pub use embedded_graphics::{self, pixelcolor::Rgb888 as Rgb, prelude::*};
     pub use ogc::{self, prelude::*};
 }

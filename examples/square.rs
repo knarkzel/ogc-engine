@@ -3,7 +3,7 @@
 
 use ogc_engine::prelude::*;
 
-use embedded_graphics::{pixelcolor::Rgb888, primitives::Rectangle};
+use embedded_graphics::primitives::{Rectangle, Triangle};
 
 struct Game {
     x: i32,
@@ -12,9 +12,14 @@ struct Game {
 
 impl State for Game {
     fn update(&mut self, _video: &mut Video, display: &mut Display) {
+        display.clear(Rgb::RED).unwrap();
+
         let rectangle = Rectangle::new(Point::new(self.x, self.y), Size::new(50, 50));
-        display.clear(Rgb888::RED).unwrap();
-        display.fill_solid(&rectangle, Rgb888::WHITE).unwrap();
+        display.fill_solid(&rectangle, Rgb::WHITE).unwrap();
+
+        let triangle = Triangle::new(Point::new(100, 10), Point::new(50, 10), Point::new(100, 50));
+        display.fill_triangle(&triangle, Rgb::YELLOW);
+
         self.x = (self.x + 1) % 640;
         self.y = (self.y + 2) % 528;
     }
