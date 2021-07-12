@@ -296,7 +296,7 @@ dependencies = [
 [[package]]
 name = "ogc-rs"
 version = "0.7.1"
-source = "git+https://github.com/knarkzel/ogc-rs?branch=develop#2b1a7cc0969c943ef482d2a155f658e6c8017f23"
+source = "git+https://github.com/knarkzel/ogc-rs?branch=develop#fa696e41083fe88f5296408170fd8ce0c37bf8a1"
 dependencies = [
  "bitflags",
  "libc",
@@ -307,7 +307,7 @@ dependencies = [
 [[package]]
 name = "ogc-sys"
 version = "0.4.2"
-source = "git+https://github.com/knarkzel/ogc-rs?branch=develop#2b1a7cc0969c943ef482d2a155f658e6c8017f23"
+source = "git+https://github.com/knarkzel/ogc-rs?branch=develop#fa696e41083fe88f5296408170fd8ce0c37bf8a1"
 dependencies = [
  "bindgen",
  "libc",

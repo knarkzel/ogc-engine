@@ -85,6 +85,7 @@ impl Engine {
             Video::set_next_framebuffer(video.framebuffer);
             Video::flush();
             Video::wait_vsync();
+            video.flip_framebuffer();
         }
     }
 }

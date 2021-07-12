@@ -156,7 +156,12 @@ impl DrawTarget for Display {
     }
 
     fn fill_solid(&mut self, area: &Rectangle, color: Self::Color) -> Result<(), Self::Error> {
-        let color = color.into_storage();
+        // let color Rgb888::new(0xAA, 0xBB, 0xCC);
+        // assert_eq!(color.into_storage(), 0x00AABBCC);
+        // ^ this is wrong, we want 0xAABBCCFF, where fields are:
+        //                          0xRRGGBBAA, R = Red, G = Green, B = Blue, A = Alpha
+        //                                      0xFF is ALPHA
+        let color = (color.into_storage() << 8) | 0xFF;
         let bottom = area.bottom_right().expect("No bottom_right");
         let (top_x, top_y) = (area.top_left.x as f32, area.top_left.y as f32);
         let (bottom_x, bottom_y) = (bottom.x as f32, bottom.y as f32);
