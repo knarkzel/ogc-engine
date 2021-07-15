@@ -11,6 +11,12 @@ impl State for Game {
     fn setup(&mut self, _video: &mut Video) {
         Mp3Player::play_buffer(MUSIC);
     }
+
+    fn update(&mut self, _video: &mut Video, _display: &mut Display) {
+        if !Mp3Player::is_playing() {
+            Mp3Player::play_buffer(MUSIC);
+        }
+    }
 }
 
 #[start]
