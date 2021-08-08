@@ -8,19 +8,13 @@ const MUSIC: &[u8] = include_bytes!("sample.mp3");
 struct Game;
 
 impl State for Game {
-    fn setup(&mut self, _video: &mut Video) {
+    fn init() {
         Mp3Player::play_buffer(MUSIC);
-    }
-
-    fn update(&mut self, _video: &mut Video, _display: &mut Display) {
-        if !Mp3Player::is_playing() {
-            Mp3Player::play_buffer(MUSIC);
-        }
     }
 }
 
 #[start]
 fn main(_argc: isize, _argv: *const *const u8) -> isize {
-    let game = Game;
-    Engine::new().state(Box::new(game)).run()
+    let state = Game;
+    Engine::run(state)
 }

@@ -1,8 +1,7 @@
 extern crate alloc;
 
 use crate::display::Display;
-use alloc::boxed::Box;
-use ogc::{asnd::Asnd, gx::Gx, mp3player::Mp3Player, video::Video};
+use ogc::{asnd::Asnd, gx::Gx, mp3player::Mp3Player, pad::Pad, video::Video};
 
 /// Trait for enabling state.
 ///
@@ -17,50 +16,42 @@ use ogc::{asnd::Asnd, gx::Gx, mp3player::Mp3Player, video::Video};
 /// }
 ///
 /// impl State for Game {
-///     fn update(&mut self, _video: &mut Video, display: &mut Display) {
+///     fn update(&mut self) {
 ///         self.x += 1;
 ///         self.y += 2;
+///     }
+///
+///     fn draw(&self, display: &mut Display) -> Result<(), DrawError> {
+///         let rectangle = Rectangle::new(Point::new(self.x, self.y), Size::new(50, 50));
+///         display.fill_solid(&rectangle, Rgb::WHITE)?;
+///         Ok(())
 ///     }
 /// }
 ///
 /// #[start]
 /// fn main(_argc: isize, _argv: *const *const u8) -> isize {
 ///     let state = Game { x: 50, y: 50 };
-///     Engine::new().state(Box::new(state)).run()
+///     Engine::run(state)
 /// }
 /// ```
 pub trait State {
-    fn setup(&mut self, _video: &mut Video) {}
-    fn update(&mut self, _video: &mut Video, _display: &mut Display) {}
+    fn init() {}
+    fn draw(&self, _display: &mut Display) -> Result<(), crate::DrawError> {
+        Ok(())
+    }
+    fn update(&mut self) {}
 }
 
 /// Game engine abstraction.
-#[derive(Default)]
-pub struct Engine {
-    display: Option<Display>,
-    state: Option<Box<dyn State>>,
-}
+pub struct Engine;
 
 impl Engine {
-    pub fn new() -> Self {
-        Self::default()
-    }
-
-    pub fn state(self, state: Box<dyn State>) -> Self {
-        let state = Some(state);
-        Self { state, ..self }
-    }
-
-    pub fn display(self, fifo_size: usize) -> Self {
-        let display = Some(Display::new(fifo_size));
-        Self { display, ..self }
-    }
-
-    pub fn run(mut self) -> ! {
+    pub fn run<T: State>(mut state: T) -> ! {
         // Init
         let mut video = Video::init();
         Asnd::init();
         Mp3Player::init();
+        Pad::init();
 
         Video::configure(Video::get_preferred_mode().into());
         Video::set_next_framebuffer(video.framebuffer);
@@ -68,23 +59,26 @@ impl Engine {
         Video::flush();
         Video::wait_vsync();
 
-        let mut display = self.display.unwrap_or(Display::new(256 * 1024));
+        let mut display = Display::new(256 * 1024);
         display.setup(&mut video.render_config);
 
         let fb_width = video.render_config.framebuffer_width as _;
         let emb_height = video.render_config.embed_framebuffer_height as _;
 
-        if let Some(ref mut state) = self.state {
-            state.setup(&mut video);
-        }
+        T::init();
 
         loop {
             Gx::set_viewport(0.0, 0.0, fb_width, emb_height, 0.0, 0.0);
+            Pad::scan_pads();
 
-            if let Some(ref mut state) = self.state {
-                state.update(&mut video, &mut display);
-                display.flush(video.framebuffer);
-            }
+            // Update
+            state.update();
+
+            // Draw
+            state
+                .draw(&mut display)
+                .expect("Error occured while drawing");
+            display.flush(video.framebuffer);
 
             Video::set_next_framebuffer(video.framebuffer);
             Video::flush();

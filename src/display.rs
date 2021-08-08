@@ -139,7 +139,7 @@ impl Display {
 
 impl DrawTarget for Display {
     type Color = Rgb888;
-    type Error = core::convert::Infallible;
+    type Error = crate::DrawError;
 
     fn draw_iter<I>(&mut self, pixels: I) -> Result<(), Self::Error>
     where
