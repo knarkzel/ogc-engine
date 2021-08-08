@@ -9,5 +9,4 @@ embedded-graphics = "0.7"
 
 [dependencies.ogc-rs]
 git = "https://github.com/knarkzel/ogc-rs"
-branch = "develop"
 features = ["ffi"]
