@@ -14,6 +14,7 @@ Internally it uses `ogc-rs` and `embedded-graphics`.
 In order to run examples you need following:
 
 - [rust](https://rustup.rs/)
+- [devkitPro](https://devkitpro.org/wiki/Getting_Started)
 - `cargo install just`
 - `pacman -S dolphin-emu`
 
