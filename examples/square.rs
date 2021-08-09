@@ -22,7 +22,8 @@ impl State for Game {
         display.fill_solid(&rectangle, Rgb::WHITE)?;
 
         let triangle = Triangle::new(Point::new(100, 10), Point::new(50, 10), Point::new(100, 50));
-        display.fill_triangle(&triangle, Rgb::YELLOW);
+        display.fill_triangle(&triangle, Rgb::YELLOW)?;
+
         Ok(())
     }
 }

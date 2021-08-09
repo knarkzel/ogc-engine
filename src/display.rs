@@ -183,7 +183,11 @@ impl OriginDimensions for Display {
 }
 
 impl Display {
-    pub fn fill_triangle(&mut self, area: &Triangle, color: Rgb888) {
+    pub fn fill_triangle(
+        &mut self,
+        area: &Triangle,
+        color: Rgb888,
+    ) -> Result<(), crate::DrawError> {
         let color = gx_color(color);
 
         Gx::begin(GX_TRIANGLES as _, GX_VTXFMT0 as _, 3);
@@ -194,6 +198,8 @@ impl Display {
         }
 
         Gx::end();
+
+        Ok(())
     }
 }
 

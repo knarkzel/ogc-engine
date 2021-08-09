@@ -105,6 +105,7 @@ impl State for Game {
             let color = Rgb::new(enemy.color, enemy.color.saturating_sub(50), enemy.color);
             display.fill_solid(&rectangle, color)?;
         }
+
         Ok(())
     }
 }
