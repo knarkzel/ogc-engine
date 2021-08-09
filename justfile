@@ -8,4 +8,4 @@ run EXAMPLE:
     cargo build --example {{EXAMPLE}}
     if [ -z {{BASE}}/{{EXAMPLE}}.elf ]; then rm {{BASE}}/{{EXAMPLE}}.elf; fi;
     cp {{BASE}}/{{EXAMPLE}} {{BASE}}/{{EXAMPLE}}.elf
-    dolphin-emu -e {{BASE}}/{{EXAMPLE}}.elf
+    dolphin-emu -a LLE -e {{BASE}}/{{EXAMPLE}}.elf
