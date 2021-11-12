@@ -1,7 +1,7 @@
 #![no_std]
 #![feature(start)]
 
-use embedded_graphics::primitives::{Rectangle, Triangle};
+use embedded_graphics::primitives::Rectangle;
 use ogc_engine::prelude::*;
 
 struct Game {
@@ -20,9 +20,6 @@ impl State for Game {
 
         let rectangle = Rectangle::new(Point::new(self.x, self.y), Size::new(50, 50));
         display.fill_solid(&rectangle, Rgb::WHITE)?;
-
-        let triangle = Triangle::new(Point::new(100, 10), Point::new(50, 10), Point::new(100, 50));
-        display.fill_triangle(&triangle, Rgb::YELLOW)?;
 
         Ok(())
     }

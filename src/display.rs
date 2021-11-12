@@ -183,7 +183,8 @@ impl OriginDimensions for Display {
 }
 
 impl Display {
-    pub fn fill_triangle(
+    #[allow(dead_code)]
+    fn fill_triangle(
         &mut self,
         area: &Triangle,
         color: Rgb888,
