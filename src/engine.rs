@@ -24,6 +24,7 @@ use ogc::{asnd::Asnd, gx::Gx, mp3player::Mp3Player, pad::Pad, video::Video};
 ///     fn draw(&self, display: &mut Display) -> Result<(), DrawError> {
 ///         let rectangle = Rectangle::new(Point::new(self.x, self.y), Size::new(50, 50));
 ///         display.fill_solid(&rectangle, Rgb::WHITE)?;
+///
 ///         Ok(())
 ///     }
 /// }
