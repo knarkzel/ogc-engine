@@ -2,7 +2,7 @@
 name = "ogc-engine"
 version = "0.1.0"
 authors = ["Knarkzel"]
-edition = "2018"
+edition = "2021"
 
 [dependencies]
 embedded-graphics = "0.7"
