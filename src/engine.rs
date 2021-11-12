@@ -50,8 +50,8 @@ impl Engine {
     pub fn run<T: State>(mut state: T) -> ! {
         // Init
         let mut video = Video::init();
-        Mp3Player::init();
         Asnd::init();
+        Mp3Player::init();
         Pad::init();
 
         Video::configure(Video::get_preferred_mode().into());
