@@ -301,6 +301,7 @@ version = "0.1.0"
 dependencies = [
  "embedded-graphics",
  "ogc-rs",
+ "profont",
  "tinytga",
 ]
 
@@ -337,6 +338,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5c7ed8b8c7b886ea3ed7dde405212185f423ab44682667c8c6dd14aa1d9f6612"
 dependencies = [
  "unicode-xid",
+]
+
+[[package]]
+name = "profont"
+version = "0.5.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "eec6ccbe5cbbbdb18822a3e5b36a5e42bc9a3df0874ae0cfbf7abef285e9c2e0"
+dependencies = [
+ "embedded-graphics",
 ]
 
 [[package]]

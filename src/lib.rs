@@ -41,5 +41,4 @@ pub mod prelude {
     pub use crate::engine::{Engine, State};
     pub use embedded_graphics::{self, pixelcolor::Rgb888 as Rgb, prelude::*};
     pub use ogc::{self, prelude::*};
-    pub use tinytga;
 }
