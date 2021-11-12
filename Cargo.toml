@@ -6,6 +6,7 @@ edition = "2021"
 
 [dependencies]
 embedded-graphics = "0.7"
+tinytga = "0.4.1"
 
 [dependencies.ogc-rs]
 git = "https://github.com/knarkzel/ogc-rs"
