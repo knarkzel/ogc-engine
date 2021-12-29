@@ -45,6 +45,10 @@ impl State for Game {
     }
 
     fn update(&mut self) {
+        if Pad::buttons_down(Controller::One) == Button::Start {
+            unsafe { ogc::ffi::exit(0); };
+        }
+
         let (stick_x, stick_y) = (Pad::stick_x(Controller::One), Pad::stick_y(Controller::One));
 
         self.player.x += (stick_x / (i8::MAX / 8)) as i32;
@@ -95,7 +99,7 @@ impl State for Game {
             Point::new(self.player.x, self.player.y),
             Size::new(self.player.size, self.player.size),
         );
-        display.fill_solid(&rectangle, Rgb::WHITE)?;
+        display.fill_solid(&rectangle, Rgb::GREEN)?;
 
         for enemy in self.enemies.iter().filter(|e| !e.dead) {
             let rectangle = Rectangle::new(

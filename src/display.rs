@@ -205,6 +205,7 @@ impl Display {
 }
 
 fn gx_color(color: Rgb888) -> u32 {
+    // color.into_storage()
     // Turns 0x00RRGGBB => 0xRRGGBBFF
     (color.into_storage() << 8) | 0xFF
 }
